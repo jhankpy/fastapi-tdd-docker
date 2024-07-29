@@ -37,3 +37,9 @@ def test_read_summary(test_app_with_db):
     assert response_dict["url"] == "https://foo.bar"
     assert response_dict["summary"]
     assert response_dict["created_at"]
+
+@router.get("/{id}/", response_model=SummarySchema)
+async def read_summary(id: int) -> SummarySchema:
+    summary = await crud.get(id)
+
+    return summary
